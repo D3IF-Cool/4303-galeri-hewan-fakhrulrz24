@@ -4,8 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.d3if4027.galerihewan.Hewan
+import org.d3if4027.galerihewan.R
 import org.d3if4027.galerihewan.databinding.ListItemBinding
+import org.d3if4027.galerihewan.network.HewanApi
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
@@ -23,8 +26,10 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
             namaTextView.text = hewan.nama
             latinTextView.text = hewan.namaLatin
             jenisTextView.text = hewan.jenisHewan
-            imageView.setImageResource(hewan.imageResId)
-
+            Glide.with(imageView.context)
+                .load(HewanApi.getHewanUrl(hewan.imageId))
+                .error(R.drawable.ic_baseline_broken_image_24)
+                .into(imageView)
         }
     }
 
